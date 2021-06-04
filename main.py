@@ -5,7 +5,7 @@ import pathlib
 #parent_path = os.path.dirname(current_path)
 #sys.path.append(parent_path)
 
-def checkParams():
+def check_params():
     if len(sys.argv) == 3:
         return True
     else:
@@ -20,41 +20,41 @@ def decrypt():
     pass
 
 
-def sendFile():
+def send_file():
     pass
 
 
-def changePass():
+def change_pass():
     pass
 
 
-def helpInfo():
+def help_info():
     pass
 
-def recieveFile():
+def recieve_file():
     pass
 
-def firstArgument(flag):
+def first_argument(flag):
     if( flag == "-e"):
         encrypt()
     if( flag == "-d"):
         decrypt()
     if( flag == "-s"):
-        sendFile()
+        send_file()
     if( flag == "-c"):
-        changePass()
+        change_pass()
     if( flag == "-h"):
-        helpInfo()
+        help_info()
     if( flag == "-r"):
-        recieveFile()
+        recieve_file()
 
 
-#from functions.py import checkParams
+#from functions.py import check_params
 
 def main():
-    if checkParams():
+    if check_params():
         print ("correct inputs")
-        firstArgument(sys.argv[1])
+        first_argument(sys.argv[1])
     else:
         print ("incorrect inputs")
 
