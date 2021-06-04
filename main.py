@@ -80,7 +80,6 @@ def encrypt(filePath):
 def decrypt(filePath):
     pass
 
-
 def send_file(filePath):
     pass
 
