@@ -10,7 +10,7 @@ from pathlib import *
 
 #checks to make sure the correct number of parameters have been used when running this program.
 #program expects at least 3 parameters, except when the -h flag is used. In that case it expects 2.
-def checkParams(numbArgs,firstArg):
+def check_params(numbArgs,firstArg):
     if numbArgs == 3:
         return True
     elif numbArgs == 2 and  firstArg == "-h":
@@ -20,7 +20,7 @@ def checkParams(numbArgs,firstArg):
         print("Incorrect arguments. Correct ussage: py main.py <-flag> <file name or path to file>")
         return False
 
-def passwordRules():
+def password_rules():
     password = input("Enter password: ")
 
     while len(password) < 8:
@@ -42,11 +42,11 @@ def passwordRules():
     return password
 
 
-def aesEncrypt(filePath):
+def aes_encrypt(filePath):
     pass
 
-def fernetEncrypt(filePath):
-    password = passwordRules()
+def fernet_encrypt(filePath):
+    password = password_rules()
     baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
     userSalt = input("Enter salt value:")
     userSalt = str.encode(userSalt)
@@ -61,41 +61,41 @@ def fernetEncrypt(filePath):
     f = Fernet(key)
     token = f.encrypt(b"Secret message!")
 
-def nsaEncrypt(filePath):
+def nsa_encrypt(filePath):
     pass
 
 def encrypt(filePath):
     encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa)")
 
     if(encryptionType == "aes256"):
-        aesEncrypt(filePath)
+        aes_encrypt(filePath)
 
     if(encryptionType == "fernet"):
-        fernetEncrypt(filePath)
+        fernet_encrypt(filePath)
 
     if(encryptionType == "fernet"):
-        nsaEncrypt(filePath)
+        nsa_encrypt(filePath)
 
 
 def decrypt(filePath):
     pass
 
 
-def sendFile(filePath):
+def send_file(filePath):
     pass
 
 
-def changePass(filePath):
+def change_pass(filePath):
     pass
 
 
-def helpInfo():
+def help_info():
     pass
 
-def recieveFile(filePath):
+def recieve_file(filePath):
     pass
 
-def destroyFile(filePath):
+def destroy_file(filePath):
     pass
 
 def arguments(flag, filePath):
@@ -104,18 +104,18 @@ def arguments(flag, filePath):
     if( flag == "-d"):
         decrypt(filePath)
     if( flag == "-s"):
-        sendFile(filePath)
+        send_file(filePath)
     if( flag == "-c"):
-        changePass(filePath)
+        change_pass(filePath)
     if( flag == "-h"):
-        helpInfo()
+        help_info()
     if( flag == "-destroy"):
-        destroyFile(filePath)
+        destroy_file(filePath)
     if( flag == "-r"):
-        recieveFile(filePath)
+        recieve_file(filePath)
 
 def main():
-    if checkParams(len(sys.argv), sys.argv[1]):
+    if  check_params(len(sys.argv), sys.argv[1]):
         print ("correct inputs")
         arguments(sys.argv[1], sys.argv[2])
     else:
