@@ -3,8 +3,6 @@ import base64
 import os
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives import kdf
-from cryptography.hazmat.primitives.kdf import KeyDerivationFunction
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from pathlib import *
 
@@ -42,15 +40,16 @@ def password_rules():
     return password
 
 
-def aes_encrypt(filePath):
+def aes_encrypt(file_path):
     pass
 
-def fernet_encrypt(filePath):
+def fernet_encrypt(file_path):
     password = password_rules()
     baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
     userSalt = input("Enter salt value:")
     userSalt = str.encode(userSalt)
     finalSalt = userSalt + baseSalt
+    new_encrypted_file_name = input("Enter name of newly encripted file:" )
     kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=32,
@@ -58,60 +57,80 @@ def fernet_encrypt(filePath):
             iterations=200000,
             )
     key = base64.urlsafe_b64encode(kdf.derive(password))
-    f = Fernet(key)
-    token = f.encrypt(b"Secret message!")
+    encrypt_fernet = Fernet(key)
 
-def nsa_encrypt(filePath):
+    with open(file_path, 'rb') as file:
+        unencrypted_file = file.read()
+
+    encrypted_file = encrypt_fernet.encrypt(unencrypted_file)
+
+    with open(new_encrypted_file_name, 'wb') as new_file:
+        new_file.write(encrypted_file)
+
+
+
+
+def nsa_encrypt(file_path):
     pass
 
-def encrypt(filePath):
+def encrypt(file_path):
     encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa)")
 
     if(encryptionType == "aes256"):
-        aes_encrypt(filePath)
+        aes_encrypt(file_path)
 
     if(encryptionType == "fernet"):
-        fernet_encrypt(filePath)
+        fernet_encrypt(file_path)
 
     if(encryptionType == "fernet"):
-        nsa_encrypt(filePath)
+        nsa_encrypt(file_path)
 
 
-def decrypt(filePath):
-    pass
-
-def send_file(filePath):
+def decrypt(file_path):
     pass
 
 
-def change_pass(filePath):
+def send_file(file_path):
+    pass
+
+
+def change_pass(file_path):
     pass
 
 
 def help_info():
     pass
 
-def recieve_file(filePath):
+
+def recieve_file(file_path):
     pass
 
-def destroy_file(filePath):
+
+def destroy_file(file_path):
     pass
 
-def arguments(flag, filePath):
+
+def move_file(file_path):
+    pass
+
+
+def arguments(flag, file_path):
     if( flag == "-e"):
-        encrypt(filePath)
+        encrypt(file_path)
     if( flag == "-d"):
-        decrypt(filePath)
+        decrypt(file_path)
     if( flag == "-s"):
-        send_file(filePath)
+        send_file(file_path)
     if( flag == "-c"):
-        change_pass(filePath)
+        change_pass(file_path)
     if( flag == "-h"):
         help_info()
     if( flag == "-destroy"):
-        destroy_file(filePath)
+        destroy_file(file_path)
     if( flag == "-r"):
-        recieve_file(filePath)
+        recieve_file(file_path)
+    if( flag == "-m"):
+        move_file(file_path)
 
 def main():
     if check_params(len(sys.argv), sys.argv[1]):
