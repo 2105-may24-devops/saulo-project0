@@ -8,7 +8,7 @@ from pathlib import *
 
 #checks to make sure the correct number of parameters have been used when running this program.
 #program expects at least 3 parameters, except when the -h flag is used. In that case it expects 2.
-def check_params(numbArgs,firstArg):
+def check_params(numbArgs):
     if numbArgs == 3:
         return True
     elif numbArgs == 2 and  firstArg == "-h":
@@ -49,7 +49,7 @@ def fernet_encrypt(file_path):
     userSalt = input("Enter salt value:")
     userSalt = str.encode(userSalt)
     finalSalt = userSalt + baseSalt
-    new_encrypted_file_name = input("Enter name of newly encripted file:" )
+    new_encrypted_file_name = input("Enter name of newly encripted file that will be created: " )
     kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=32,
@@ -66,7 +66,6 @@ def fernet_encrypt(file_path):
 
     with open(new_encrypted_file_name, 'wb') as new_file:
         new_file.write(encrypted_file)
-
 
 
 
@@ -133,11 +132,11 @@ def arguments(flag, file_path):
         move_file(file_path)
 
 def main():
-    if check_params(len(sys.argv), sys.argv[1]):
+    if check_params(len(sys.argv)):
         print ("correct inputs")
         arguments(sys.argv[1], sys.argv[2])
     else:
-        pass
+        exit(1)
 
 
 if __name__ == "__main__":
