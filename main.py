@@ -115,7 +115,7 @@ def arguments(flag, filePath):
         recieve_file(filePath)
 
 def main():
-    if  check_params(len(sys.argv), sys.argv[1]):
+    if check_params(len(sys.argv), sys.argv[1]):
         print ("correct inputs")
         arguments(sys.argv[1], sys.argv[2])
     else:
