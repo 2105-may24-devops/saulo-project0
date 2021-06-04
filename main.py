@@ -8,6 +8,8 @@ from cryptography.hazmat.primitives.kdf import KeyDerivationFunction
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from pathlib import *
 
+#checks to make sure the correct number of parameters have been used when running this program.
+#program expects at least 3 parameters, except when the -h flag is used. In that case it expects 2.
 def checkParams(numbArgs,firstArg):
     if numbArgs == 3:
         return True
