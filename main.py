@@ -1,9 +1,18 @@
 import sys
+import os
 import base64
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from pathlib import *
+
+try:
+    from cryptography.fernet import Fernet
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+except ModuleNotFoundError:
+    print("ERROR: cyptography module not found.")
+    exit(1)
+
+
+
 
 #checks to make sure the correct number of parameters have been used when running this program.
 #program expects at least 3 parameters, except when the -h flag is used. In that case it expects 2.
@@ -80,8 +89,14 @@ def fernet_encrypt(file_path):
 
     if(over_write_or_new == "new") or (over_write_or_new == "<new>"):
         p_new = Path(new_encrypted_file_name)
-        with p_new.open('wb') as new_file:
-            new_file.write(encrypted_file)
+        path_without_file_name = p_new.parent
+        if path_without_file_name.is_dir():
+            with p_new.open('wb') as new_file:
+                new_file.write(encrypted_file)
+        else:
+            pwd = Path(os.getcwd())
+            absolute_path = Path.cwd / path_without_file_name
+            print("The file path: "+ absolute_path +" has not been found.")
     elif(over_write_or_new == "overwrite") or (over_write_or_new == "<overwrite>"):
         with p_file_path.open('wb') as new_file:
             new_file.write(encrypted_file)
