@@ -1,0 +1,47 @@
+  
+---
+
+- name: Run setup actions in preporation to run project0
+  hosts: all
+  tasks:
+    - name: Make sure that python3 has been installed
+      package:
+        name: python3
+        state: latest
+    - name: Make sure that pip3 has been installed
+      package:
+        name: python3-pip
+        state: latest
+    - name: Make sure that git has been installed
+      package:
+        name: git
+        state: latest
+    - name: Make the ~/saulo-project0 directory if it does not already exist
+      file:
+        path: ~/saulo-project0
+        state: directory
+    - name: Git clone project0 from github.
+      git:
+        repo: https://github.com/2105-may24-devops/saulo-project0.git
+        dest: ~/saulo-project0
+        update: yes
+    - name: Install the newest version of pip
+      command:
+        cmd: python3 -m pip install --upgrade pip
+    - name: Install the cryptography module for python
+      pip:
+        name: cryptography
+        executable: "pip3"
+        state: latest
+    - name: Install the virtualenv module for python
+      pip:
+        name: virtualenv
+        executable: "pip3"
+        state: latest
+    - name: Installs all requirements as stated in requirements.txt
+      command:
+        cmd: pip install -r ~/saulo-project0/requirements.txt
+    - name: create virtual environment
+      pip:
+        virtualenv: ~/saulo-project0/env
+        requirements: ~/saulo-project0/requirements.txt
