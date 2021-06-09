@@ -1,0 +1,7 @@
+- name: Delete folder and everything inside of it.
+  hosts: all
+  tasks:
+  - name: Delete folder and everything inside of it.
+    file:
+      path: ~/saulo-project0/
+      state: absent
