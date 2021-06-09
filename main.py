@@ -72,9 +72,9 @@ def fernet_encrypt(file_path):
         p_new = Path(new_encrypted_file_name)
         path_without_file_name = p_new.parent
         while(path_without_file_name.is_dir() == False):
-            make_new_file_path = input("File path was not found. Enter <new> to create that path or enter <try> to enter an existing path.")
+            make_new_file_path = input("File path was not found. Enter <new> to create that path or enter <try> to enter an existing path. \n")
             if(make_new_file_path == "new" or make_new_file_path == "<new>"):
-                pass
+                path_without_file_name.mkdir(parents=True, exist_ok=True)
             elif(make_new_file_path == "try" or make_new_file_path == "<try>"):
                 new_encrypted_file_name = input("Enter the name of newly encripted file that will be created: \n" )
 
