@@ -43,5 +43,13 @@
         cmd: pip install -r ~/saulo-project0/requirements.txt
     - name: create virtual environment
       pip:
-        virtualenv: ~/saulo-project0/env
+        virtualenv: ~/saulo-project0/venv
         requirements: ~/saulo-project0/requirements.txt
+    - name: Give execution privileges to test_scripts.sh
+      command:
+        cmd: chmod +x ~/saulo-project0/test_script.sh
+        warn: false
+    - name: Run test_script.sh to test the functionality of program
+      command: 
+        cmd: ./test_script.sh >> test_file_log.txt
+        chdir: ~/saulo-project0/
