@@ -123,6 +123,7 @@ def fernet_encrypt(file_path):
 
 
 
+
 def nsa_encrypt(file_path):
     pass
 
