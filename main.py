@@ -91,15 +91,23 @@ def fernet_encrypt(file_path):
         p_new = Path(new_encrypted_file_name)
         path_without_file_name = p_new.parent
         if path_without_file_name.is_dir():
-            with p_new.open('wb') as new_file:
-                new_file.write(encrypted_file)
+            try:
+                with p_new.open('wb') as new_file:
+                    new_file.write(encrypted_file)
+            except:
+                print("ERROR: writing the file: " + str(p_new))
         else:
             pwd = Path(os.getcwd())
             absolute_path = pwd / path_without_file_name
             print("The file path: "+ str(absolute_path) +" has not been found.")
+            exit(1)
     elif(over_write_or_new == "overwrite") or (over_write_or_new == "<overwrite>"):
-        with p_file_path.open('wb') as new_file:
-            new_file.write(encrypted_file)
+        try:
+            with p_file_path.open('wb') as new_file:
+                new_file.write(encrypted_file)
+        except:
+            print("ERROR: writing the file: " + str(p_file_path))
+            exit(1)
     else:
         exit(1)
 
@@ -118,13 +126,13 @@ def encrypt(file_path):
         encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
 
     if(encryptionType == "aes256"):
-        aes_encrypt(file_path)
+        fernet_encrypt(file_path)
 
     if(encryptionType == "fernet"):
         fernet_encrypt(file_path)
 
     if(encryptionType == "fernet"):
-        nsa_encrypt(file_path)
+        fernet_encrypt(file_path)
 
 def aes_decrypt(file_path):
     pass
@@ -150,13 +158,21 @@ def fernet_decrypt(file_path):
 
     p_file_path = Path(file_path)
 
-    with p_file_path.open('rb') as file:
-        encrypted_file = file.read()
+    try:
+        with p_file_path.open('rb') as file:
+            encrypted_file = file.read()
+    except:
+        print("ERROR: reading the file: " + str(p_file_path))
+        exit(1)
 
     decrypted_file = decrypt_fernet.decrypt(encrypted_file)
 
-    with p_file_path.open('wb') as new_file:
-        new_file.write(decrypted_file)
+    try:
+        with p_file_path.open('wb') as new_file:
+            new_file.write(decrypted_file)
+    except:
+        print("ERROR: writing the file: " + str(p_file_path))
+        exit(1)
 
     print("File successfuly decrypted.")
 
