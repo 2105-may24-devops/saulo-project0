@@ -1,0 +1,2 @@
+ERROR: Encrypted file does NOT matches the expected result.
+Encrypted file matches the expected result.

@@ -1,6 +1,6 @@
-fernet 
-sabisabi 
-sabisabi 
-salt 
+fernet
+sabisabi
+sabisabi
+salt
 new
-test/new_enc.tx
+test/new_enc.txt
