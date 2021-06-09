@@ -124,7 +124,42 @@ def fernet_encrypt(file_path):
     print("File successfuly encrypted.")
 
 def fernet_encrypt_noninterractive(file_path):
-    pass
+    password = sys.argv[4]
+    password = str.encode(password)
+    baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
+    userSalt = sys.argv[5]
+    userSalt = str.encode(userSalt)
+    finalSalt = userSalt + baseSalt
+    over_write_or_new = "overwrite"
+
+    kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=finalSalt,
+            iterations=200000,
+            backend=None
+            )
+    key = base64.urlsafe_b64encode(kdf.derive(password))
+    encrypt_fernet = Fernet(key)
+
+    p_file_path = Path(file_path)
+
+    try:
+        with p_file_path.open('rb') as file:
+            unencrypted_file = file.read()
+    except:
+        print("ERROR: reading the file: " + str(p_file_path))
+        exit(1)
+
+    encrypted_file = encrypt_fernet.encrypt(unencrypted_file)
+    try:
+        with p_file_path.open('wb') as new_file:
+                new_file.write(encrypted_file)
+    except:
+        print("ERROR: writing the file: " + str(p_file_path))
+        exit(1)
+
+    print("File successfuly encrypted.")
 
 def nsa_encrypt(file_path):
     pass
@@ -194,7 +229,43 @@ def fernet_decrypt(file_path):
     print("File successfuly decrypted.")
 
 def fernet_decrypt_noninterractive(file_path):
-    pass
+    password = sys.argv[4]
+    password = str.encode(password)
+    baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
+    userSalt = sys.argv[5]
+    userSalt = str.encode(userSalt)
+    finalSalt = userSalt + baseSalt
+
+    kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=finalSalt,
+            iterations=200000,
+            backend=None
+            )
+
+    key = base64.urlsafe_b64encode(kdf.derive(password))
+    decrypt_fernet = Fernet(key)
+
+    p_file_path = Path(file_path)
+
+    try:
+        with p_file_path.open('rb') as file:
+            encrypted_file = file.read()
+    except:
+        print("ERROR: reading the file: " + str(p_file_path))
+        exit(1)
+
+    decrypted_file = decrypt_fernet.decrypt(encrypted_file)
+
+    try:
+        with p_file_path.open('wb') as new_file:
+            new_file.write(decrypted_file)
+    except:
+        print("ERROR: writing the file: " + str(p_file_path))
+        exit(1)
+
+    print("File successfuly decrypted.")
 
 
 def nsa_decrypt(file_path):
