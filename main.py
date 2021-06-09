@@ -22,6 +22,8 @@ def check_params(numb_args):
     elif numb_args < 2 :
         print("Incorrect arguments. Correct ussage: py main.py <-flag> <file name or path to file>")
         return False
+    elif numb_args >= 6 :
+        return True
     elif numb_args == 2 and  sys.argv[1]== "-h":
         print("<REPLACE ME> with a print out of the instructions on how to use this program and all the flag options.")
         return False
@@ -121,27 +123,33 @@ def fernet_encrypt(file_path):
 
     print("File successfuly encrypted.")
 
-
-
+def fernet_encrypt_noninterractive(file_path):
+    pass
 
 def nsa_encrypt(file_path):
     pass
 
 def encrypt(file_path):
-    encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
-
-    while ((encryptionType != "aes256") and (encryptionType != "fernet") and (encryptionType != "nsa") ):
-        print("Incorrect user input.")
+    if(len(sys.argv) > 6 and sys.argv[3] == "fernet" ):
+            fernet_encrypt_noninterractive(file_path)
+    else:
         encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
 
-    if(encryptionType == "aes256"):
-        fernet_encrypt(file_path)
+        while ((encryptionType != "aes256") and (encryptionType != "fernet") and (encryptionType != "nsa") ):
+            print("Incorrect user input.")
+            encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
 
-    if(encryptionType == "fernet"):
-        fernet_encrypt(file_path)
+        if(encryptionType == "aes256"):
+            aes_encrypt(file_path)
 
-    if(encryptionType == "fernet"):
-        fernet_encrypt(file_path)
+        if(encryptionType == "fernet"):
+            if(len(sys.argv) > 6):
+                fernet_encrypt_noninterractive(file_path)
+            else:
+                fernet_encrypt(file_path)
+
+        if(encryptionType == "nsa"):
+            nsa_encrypt(file_path)
 
 def aes_decrypt(file_path):
     pass
@@ -185,7 +193,8 @@ def fernet_decrypt(file_path):
 
     print("File successfuly decrypted.")
 
-
+def fernet_decrypt_noninterractive(file_path):
+    pass
 
 
 def nsa_decrypt(file_path):
@@ -193,20 +202,26 @@ def nsa_decrypt(file_path):
 
 
 def decrypt(file_path):
-    decryptionType = input("What was the file encrypted with? (options are: aes256, fernet, nsa): \n")
-
-    while ((decryptionType != "aes256") and (decryptionType != "fernet") and (decryptionType != "nsa") ):
-        print("Incorrect user input.")
+    if(len(sys.argv) >= 6 and sys.argv[3]):
+        fernet_decrypt_noninterractive(file_path)
+    else:
         decryptionType = input("What was the file encrypted with? (options are: aes256, fernet, nsa): \n")
 
-    if(decryptionType == "aes256"):
-        aes_decrypt(file_path)
+        while ((decryptionType != "aes256") and (decryptionType != "fernet") and (decryptionType != "nsa") ):
+            print("Incorrect user input.")
+            decryptionType = input("What was the file encrypted with? (options are: aes256, fernet, nsa): \n")
 
-    if(decryptionType == "fernet"):
-        fernet_decrypt(file_path)
+        if(decryptionType == "aes256"):
+            aes_decrypt(file_path)
 
-    if(decryptionType == "fernet"):
-        nsa_decrypt(file_path)
+        if(decryptionType == "fernet"):
+            if(len(sys.argv) >= 6):
+                fernet_decrypt_noninterractive(file_path)
+            else:
+                fernet_decrypt(file_path)
+
+        if(decryptionType == "nsa"):
+            nsa_decrypt(file_path)
 
 
 def send_file(file_path):
