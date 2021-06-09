@@ -38,9 +38,6 @@
         name: virtualenv
         executable: "pip3"
         state: latest
-    - name: Installs all requirements as stated in requirements.txt
-      command:
-        cmd: pip install -r ~/saulo-project0/requirements.txt
     - name: create virtual environment
       pip:
         virtualenv: ~/saulo-project0/venv
