@@ -95,8 +95,8 @@ def fernet_encrypt(file_path):
                 new_file.write(encrypted_file)
         else:
             pwd = Path(os.getcwd())
-            absolute_path = Path.cwd / path_without_file_name
-            print("The file path: "+ absolute_path +" has not been found.")
+            absolute_path = pwd / path_without_file_name
+            print("The file path: "+ str(absolute_path) +" has not been found.")
     elif(over_write_or_new == "overwrite") or (over_write_or_new == "<overwrite>"):
         with p_file_path.open('wb') as new_file:
             new_file.write(encrypted_file)
