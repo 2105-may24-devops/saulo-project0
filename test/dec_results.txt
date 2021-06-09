@@ -1,4 +1,0 @@
-fernet
-sabisabi
-sabisabi
-salt
