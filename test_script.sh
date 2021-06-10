@@ -33,19 +33,7 @@
                 exit 1
 
 	fi
-	
-	
-	
-	if cmp test/file1.txt test/new_enc.txt; then
-		echo "derypted file matches the expected result." >> test/test_results.txt
-		echo "derypted file matches the expected result."
 
-   	else
-   		echo "ERROR: derypted file does NOT matches the expected result." >> test/test_results.txt
-		echo "ERROR: derypted file does NOT matches the expected result." 
-                exit 1
-
-	fi
 	
 	exit 0
 }
