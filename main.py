@@ -165,7 +165,7 @@ def nsa_encrypt(file_path):
     pass
 
 def encrypt(file_path):
-    if(len(sys.argv) > 6 and sys.argv[3] == "fernet" ):
+    if(len(sys.argv) >= 6 and sys.argv[3] == "fernet" ):
             fernet_encrypt_noninterractive(file_path)
     else:
         encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
