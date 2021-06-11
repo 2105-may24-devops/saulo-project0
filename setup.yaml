@@ -48,5 +48,14 @@
         warn: false
     - name: Run test_script.sh to test the functionality of program
       command: 
-        cmd: ./test_script.sh >> test_file_log.txt
+        cmd: ./test_script.sh > test_file_log.txt
         chdir: ~/saulo-project0/
+    - name: first step in creating python3 virtual environment
+      command: 
+        cmd: python3 -m venv venv
+    - name: installing requirements for virtual environment
+      command: 
+        cmd: venv/bin/python3 -m pip install -r requirements.txt
+    - name: activating virtual environment
+      command: 
+        cmd: source venv/bin/activate
