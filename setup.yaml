@@ -56,9 +56,12 @@
     - name: first step in creating python3 virtual environment
       command: 
         cmd: python3 -m venv venv
+        chdir: ~/saulo-project0/
     - name: installing requirements for virtual environment
       command: 
         cmd: venv/bin/python3 -m pip install -r requirements.txt
+        chdir: ~/saulo-project0/
     - name: activating virtual environment
       command: 
         cmd: source venv/bin/activate
+        chdir: ~/saulo-project0/
