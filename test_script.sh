@@ -31,7 +31,23 @@
                 exit 1
 
 	fi
+	
+	python3 main.py -e test/example.txt fernet password salt > /dev/null
+	python3 main.py -d test/example.txt fernet password salt > /dev/null
+	
+	if cmp test/example.txt test/new_enc.txt; then
+		echo "Encrypted then decrypted test/example.txt matches the expected result." >> test/test_results.txt
+		echo "Encrypted then decrypted test/example.txt matches the expected result."
 
+   	else
+   		echo "ERROR: Encrypted then decrypted test/example.txt does NOT matches the expected result." >> test/test_results.txt
+		echo "ERROR: Encrypted then decrypted test/example.txt does NOT matches the expected result."
+                exit 1
+
+	fi
+	
+	
+	
 	
 	exit 0
 }
