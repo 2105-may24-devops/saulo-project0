@@ -28,6 +28,9 @@
     - name: Install the newest version of pip
       command:
         cmd: python3 -m pip install --upgrade pip
+    - name: Install the newest version of setuptools
+      command:
+        cmd: python3 -m pip install --upgrade setuptools
     - name: Install the cryptography module for python
       pip:
         name: cryptography
