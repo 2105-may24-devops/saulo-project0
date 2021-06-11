@@ -53,9 +53,6 @@ def password_rules():
     return password
 
 
-def aes_encrypt(file_path):
-    pass
-
 def fernet_encrypt(file_path):
     password = password_rules()
     password = str.encode(password)
@@ -162,11 +159,24 @@ def fernet_encrypt_noninterractive(file_path):
     print("File successfuly encrypted.")
 
 def nsa_encrypt(file_path):
-    pass
+    fernet_encrypt(file_path)
+
+def aes_encrypt(file_path):
+    fernet_encrypt(file_path)
+
+def aes_encrypt_noninterractive(file_path):
+    fernet_encrypt_noninterractive(file_path)
+
+def nsa_encrypt_noninterractive(file_path):
+    fernet_encrypt_noninterractive(file_path)
 
 def encrypt(file_path):
     if(len(sys.argv) >= 6 and sys.argv[3] == "fernet" ):
             fernet_encrypt_noninterractive(file_path)
+    elif(len(sys.argv) >= 6 and sys.argv[3] == "aes256" ):
+            aes_encrypt_noninterractive(file_path)
+    elif(len(sys.argv) >= 6 and sys.argv[3] == "nsa" ):
+            nsa_encrypt_noninterractive(file_path)
     else:
         encryptionType = input("How would you like your file to be encrypted? (options are: aes256, fernet, nsa): \n")
 
@@ -186,8 +196,6 @@ def encrypt(file_path):
         if(encryptionType == "nsa"):
             nsa_encrypt(file_path)
 
-def aes_decrypt(file_path):
-    pass
 
 def fernet_decrypt(file_path):
     password = password_rules()
@@ -269,12 +277,25 @@ def fernet_decrypt_noninterractive(file_path):
 
 
 def nsa_decrypt(file_path):
-    pass
+    fernet_decrypt(file_path)
+
+def aes_decrypt(file_path):
+    fernet_decrypt(file_path)
+
+def aes_decrypt_noninterractive(file_path):
+    fernet_decrypt_noninterractive(file_path)
+
+def nsa_decrypt_noninterractive(file_path):
+    fernet_decrypt_noninterractive(file_path)
 
 
 def decrypt(file_path):
-    if(len(sys.argv) >= 6 and sys.argv[3]):
+    if(len(sys.argv) >= 6 and sys.argv[3] == "fernet"):
         fernet_decrypt_noninterractive(file_path)
+    elif(len(sys.argv) >= 6 and sys.argv[3] == "aes256"):
+        aes_decrypt_noninterractive(file_path)
+    elif(len(sys.argv) >= 6 and sys.argv[3] == "nsa"):
+        nsa_decrypt_noninterractive(file_path)
     else:
         decryptionType = input("What was the file encrypted with? (options are: aes256, fernet, nsa): \n")
 
