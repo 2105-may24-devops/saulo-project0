@@ -24,6 +24,7 @@
       git:
         repo: https://github.com/2105-may24-devops/saulo-project0.git
         dest: ~/saulo-project0
+        force: yes
         update: yes
     - name: Install the newest version of pip
       command:
