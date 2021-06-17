@@ -11,6 +11,12 @@ except ModuleNotFoundError:
     print("ERROR: cyptography module not found.")
     exit(1)
 
+try:
+    from stegano import lsbset
+except ModuleNotFoundError:
+    print("ERROR: stegano module not found.")
+    exit(1)
+
 
 
 
@@ -340,6 +346,56 @@ def move_file(file_path):
     pass
 
 
+def stenography_encrypt(file_path):
+    pwd = Path(os.getcwd())
+    p_new = Path(file_path)
+    image =  Path(sys.argv[3])
+    destination =  Path(sys.argv[4])
+    parent_destination  = destination.parent
+    abs_destination = pwd / destination
+    parent_image = image.parent
+    abs_image = pwd / image
+    parent_path = p_new.parent
+    abs_path = pwd / p_new
+    if (p_new.is_file() and image.is_file()):
+        try:
+            with p_new.open('rb') as new_file:
+                file_to_hide = new_file.read()
+        except:
+            print("ERROR: reading the file: " + str(p_new))
+            exit(1)
+        secret = lsb.hide(str(image), str(file_to_hide))
+        if(parent_destination.is_dir()):
+            secret.save(str(destination))
+        else:
+             print("ERROR: could not find directory: " + str(parent_destination))
+    else:
+        print("ERROR: reading the file: " + str(image))
+        exit(1)
+        
+
+def stenography_decrypt(file_path):
+    pwd = Path(os.getcwd())
+    image =  Path(file_path)
+    image_path = image.parent
+    abs_image = pwd / image
+    destination =  Path(sys.argv[3])
+    parent_destination  = destination.parent
+    abs_destination = pwd / destination
+    if(parent_destination.is_dir()):
+        clear_message = lsb.reveal(str(image))
+        clear_message = str.encode(clear_message)
+        try:
+            with destination.open('wb') as new_file:
+                new_file.write(clear_message)
+        except:
+            print("ERROR: writing the file: " + str(destination))
+            exit(1)
+    else:
+             print("ERROR: could not find directory: " + str(parent_destination))
+             exit(1)
+
+
 def check_if_file_exists(flag, file_path):
     print(file_path)
     if( flag != "-h"):
@@ -356,8 +412,10 @@ def arguments(flag, file_path):
         encrypt(file_path)
     if( flag == "-d"):
         decrypt(file_path)
-    if( flag == "-s"):
-        send_file(file_path)
+    if( flag == "-se"):
+        stenography_encrypt(file_path)
+    if( flag == "-sd"):
+        stenography_decrypt(file_path)
     if( flag == "-c"):
         change_pass(file_path)
     if( flag == "-h"):
