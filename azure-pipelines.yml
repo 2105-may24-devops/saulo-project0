@@ -36,7 +36,7 @@ steps:
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'saulo_project_0'
-    cliSources: 'saulo-project0'
+    cliSources: '.'
     extraProperties: |
       sonar.c.file.suffixes=-
       sonar.cpp.file.suffixes=-
