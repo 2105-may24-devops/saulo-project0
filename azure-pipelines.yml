@@ -38,6 +38,12 @@ steps:
     cliProjectKey: 'saulo_project_0'
     cliSources: '.'
 
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: InstallSSHKey@0
   inputs:
     knownHostsEntry: |
