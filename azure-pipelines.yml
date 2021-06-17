@@ -29,6 +29,8 @@ steps:
     venv/bin/python -m pip install -r requirements.txt
   displayName: 'Install dependencies'
 
+- task: so
+
 - task: InstallSSHKey@0
   inputs:
     knownHostsEntry: |
