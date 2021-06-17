@@ -1,9 +1,9 @@
-stegano==0.9.8
 appdirs==1.4.4
 cffi==1.14.5
 cryptography==3.3.2
 distlib==0.3.2
 filelock==3.0.12
 pycparser==2.20
+stegano
 six==1.16.0
 virtualenv==20.4.7
