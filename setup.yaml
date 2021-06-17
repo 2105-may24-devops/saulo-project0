@@ -8,62 +8,77 @@
       package:
         name: python3
         state: latest
+        
     - name: Make sure that pip3 has been installed
       package:
         name: python3-pip
         state: latest
+        
     - name: Make sure that git has been installed
       package:
         name: git
         state: latest
+        
     - name: Make the ~/saulo-project0 directory if it does not already exist
       file:
         path: ~/saulo-project0
         state: directory
+        
     - name: Git clone project0 from github.
       git:
         repo: https://github.com/2105-may24-devops/saulo-project0.git
         dest: ~/saulo-project0
         force: yes
         update: yes
+        
     - name: Install the newest version of pip
       command:
         cmd: python3 -m pip install --upgrade pip
+        
     - name: Install the newest version of setuptools
       command:
         cmd: python3 -m pip install --upgrade setuptools
+        
     - name: Install the cryptography module for python
       pip:
         name: cryptography
         executable: "pip3"
         state: latest
+        
+    - name: Install the stegano module for python
+      pip:
+        name: stegano
+        executable: "pip3"
+        state: latest
+        
     - name: Install the virtualenv module for python
       pip:
         name: virtualenv
         executable: "pip3"
         state: latest
+        
     - name: create virtual environment
       pip:
         virtualenv: ~/saulo-project0/venv
         requirements: ~/saulo-project0/requirements.txt
         virtualenv_python: python3
+        
     - name: Give execution privileges to test_scripts.sh
       command:
         cmd: chmod +x ~/saulo-project0/test_script.sh
         warn: false
+        
     - name: Run test_script.sh to test the functionality of program
       command: 
         cmd: ./test_script.sh > test_file_log.txt
         chdir: ~/saulo-project0/
+        
     - name: first step in creating python3 virtual environment
       command: 
         cmd: python3 -m venv venv
         chdir: ~/saulo-project0/
+        
     - name: installing requirements for virtual environment
       command: 
         cmd: venv/bin/python3 -m pip install -r requirements.txt
         chdir: ~/saulo-project0/
-  #  - name: activating virtual environment
-  #    command: 
-  #      cmd: source venv/bin/activate
-  #      chdir: ~/saulo-project0/
