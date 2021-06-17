@@ -36,7 +36,11 @@ steps:
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'saulo_project_0'
-    cliSources: '.'
+    cliSources: 'saulo-project0'
+    extraProperties: |
+      sonar.c.file.suffixes=-
+      sonar.cpp.file.suffixes=-
+      sonar.objc.file.suffixes=-
 
 - task: SonarCloudAnalyze@1
 
