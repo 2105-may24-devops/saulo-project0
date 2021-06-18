@@ -36,7 +36,7 @@ def check_params(numb_args):
         return False
     elif numb_args == 5 and  sys.argv[1]== "-se":
         return True
-    elif numb_args == 5 and  sys.argv[1]== "-sd":
+    elif numb_args == 4 and  sys.argv[1]== "-sd":
         return True
     else:
         print("Incorrect arguments. Correct ussage: py main.py <-flag> <file name or path to file>")
