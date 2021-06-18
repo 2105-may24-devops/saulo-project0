@@ -369,7 +369,7 @@ def stenography_encrypt(file_path):
         except:
             print("ERROR: reading the file: " + str(p_new))
             exit(1)
-        secret = lsb.hide(str(image), str(file_to_hide))
+        secret = lsb.hide(str(image), file_to_hide)
         if(parent_destination.is_dir()):
             secret.save(str(destination))
         else:
@@ -389,9 +389,9 @@ def stenography_decrypt(file_path):
     abs_destination = pwd / destination
     if(parent_destination.is_dir()):
         clear_message = lsb.reveal(str(image))
-        clear_message = str.encode(clear_message)
-        clear_message = clear_message[2:]
-        clear_message = clear_message[:-1]
+     #   clear_message = str.encode(clear_message)
+     #   clear_message = clear_message[2:]
+     #   clear_message = clear_message[:-1]
         try:
             with destination.open('wb') as new_file:
                 new_file.write(clear_message)
