@@ -23,12 +23,6 @@ steps:
     addToPath: true
   displayName: 'Use Python $(python.version)'
 
-- script: |
-    python -m pip install --upgrade pip
-    python -m venv venv
-    venv/bin/python -m pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud-p0'
@@ -42,6 +36,8 @@ steps:
       sonar.cpp.file.suffixes=-
       sonar.objc.file.suffixes=-
       sonar.exclusions=**/venv/**
+      sonar.exclusions=/venv/**
+      sonar.exclusions=/venv/
       sonar.exclusions=**/env/**
 
 - task: SonarCloudAnalyze@1
@@ -49,6 +45,12 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+
+- script: |
+    python -m pip install --upgrade pip
+    python -m venv venv
+    venv/bin/python -m pip install -r requirements.txt
+  displayName: 'Install dependencies'
 
 - task: InstallSSHKey@0
   inputs:
