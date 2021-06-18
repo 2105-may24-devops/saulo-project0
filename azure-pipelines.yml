@@ -41,6 +41,8 @@ steps:
       sonar.c.file.suffixes=-
       sonar.cpp.file.suffixes=-
       sonar.objc.file.suffixes=-
+      sonar.exclusions=**/venv/**
+      sonar.exclusions=**/env/**
 
 - task: SonarCloudAnalyze@1
 
