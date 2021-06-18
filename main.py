@@ -13,6 +13,7 @@ except ModuleNotFoundError:
 
 try:
     from stegano import lsbset
+    from stegano import lsb
 except ModuleNotFoundError:
     print("ERROR: stegano module not found.")
     exit(1)
