@@ -390,7 +390,6 @@ def stenography_decrypt(file_path):
     if(parent_destination.is_dir()):
         clear_message = lsb.reveal(str(image))
         clear_message = str.encode(clear_message)
-        clear_message = str.encode(clear_message)
         try:
             with destination.open('wb') as new_file:
                 new_file.write(clear_message)
