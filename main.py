@@ -49,7 +49,7 @@ def password_rules():
         print("Passwords must be atleast 8 characters long. Please try again.")
         password = input("Enter password: \n")
 
-    confirmPass = input("Enter password again to confirm: \n") 
+    confirmPass = input("Enter password again to confirm: \n")
 
     while password != confirmPass:
         print("Passwords did not match. Please try again.")
@@ -59,7 +59,7 @@ def password_rules():
             print("Passwords must be atleast 8 characters long. Please try again.")
             password = input("Enter password: \n")
 
-        confirmPass = input("Enter password again to confirm: \n") 
+        confirmPass = input("Enter password again to confirm: \n")
 
     return password
 
@@ -365,7 +365,8 @@ def stenography_encrypt(file_path):
     if (p_new.is_file() and image.is_file()):
         try:
             with p_new.open('rb') as new_file:
-                file_to_hide = new_file.read()
+                file_to_hide = base64.b64encode(new_file.read())
+                file_to_hide = file_to_hide.decode()
         except:
             print("ERROR: reading the file: " + str(p_new))
             exit(1)
@@ -377,7 +378,7 @@ def stenography_encrypt(file_path):
     else:
         print("ERROR: reading the file: " + str(image))
         exit(1)
-        
+
 
 def stenography_decrypt(file_path):
     pwd = Path(os.getcwd())
@@ -392,6 +393,8 @@ def stenography_decrypt(file_path):
      #   clear_message = str.encode(clear_message)
      #   clear_message = clear_message[2:]
      #   clear_message = clear_message[:-1]
+        clear_message += "==="
+        clear_message = base64.b64decode(clear_message)
         try:
             with destination.open('wb') as new_file:
                 new_file.write(clear_message)
