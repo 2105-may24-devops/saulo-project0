@@ -390,9 +390,8 @@ def steno_decrypt(encrypted_file):
     key = base64.urlsafe_b64encode(kdf.derive(password))
     decrypt_fernet = Fernet(key)
 
-    p_file_path = Path(file_path)
-
     decrypted_file = decrypt_fernet.decrypt(encrypted_file)
+    return decrypted_file
 
 def stenography_encrypt(file_path):
     pwd = Path(os.getcwd())
