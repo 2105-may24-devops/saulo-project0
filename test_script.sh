@@ -46,6 +46,20 @@
 
 	fi
 	
+	wget -o https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png image.txt
+	python3 main.py -se test/example.txt image.png hidden_data.png
+	python3 main.py -sd hidden_data.png result.txt
+	
+	if cmp test/example.txt result.txt; then
+		echo "Stenography successful" >> test/test_results.txt
+		echo "Stenography successful"
+
+   	else
+   		echo "ERROR: Stenography failed" >> test/test_results.txt
+		echo "ERROR: Stenography failed"
+                exit 1
+
+	fi
 	
 	
 	
