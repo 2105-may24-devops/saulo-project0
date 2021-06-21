@@ -46,7 +46,8 @@
 
 	fi
 	
-	wget -o https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png image.txt
+	wget https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png 
+	cp PNG_transparency_demonstration_1.png image.png
 	python3 main.py -se test/example.txt image.png hidden_data.png
 	python3 main.py -sd hidden_data.png result.txt
 	
