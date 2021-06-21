@@ -350,6 +350,49 @@ def destroy_file(file_path):
 def move_file(file_path):
     pass
 
+def steno_encrypt(unencrypted_file):
+    password = password_rules()
+    password = str.encode(password)
+    baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
+    userSalt = input("Enter salt value: \n")
+    userSalt = str.encode(userSalt)
+    finalSalt = userSalt + baseSalt
+    kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=finalSalt,
+            iterations=200000,
+            backend=None
+            )
+    key = base64.urlsafe_b64encode(kdf.derive(password))
+    encrypt_fernet = Fernet(key)
+
+    encrypted_file = encrypt_fernet.encrypt(unencrypted_file)
+
+    return encrypted_file
+
+def steno_decrypt(encrypted_file):
+    password = password_rules()
+    password = str.encode(password)
+    baseSalt = b'\xbf\xe2\xd1\xaf\xbc\xb1\xdd\x82\xe2\xaf\xbc\xdd\x27\xd9\x82\xbf\x61\x62'
+    userSalt = input("Enter salt value: \n")
+    userSalt = str.encode(userSalt)
+    finalSalt = userSalt + baseSalt
+
+    kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=finalSalt,
+            iterations=200000,
+            backend=None
+            )
+
+    key = base64.urlsafe_b64encode(kdf.derive(password))
+    decrypt_fernet = Fernet(key)
+
+    p_file_path = Path(file_path)
+
+    decrypted_file = decrypt_fernet.decrypt(encrypted_file)
 
 def stenography_encrypt(file_path):
     pwd = Path(os.getcwd())
@@ -365,7 +408,8 @@ def stenography_encrypt(file_path):
     if (p_new.is_file() and image.is_file()):
         try:
             with p_new.open('rb') as new_file:
-                file_to_hide = base64.b64encode(new_file.read())
+                file_to_hide = steno_encrypt(new_file.read())
+                file_to_hide = base64.b64encode(file_to_hide)
                 file_to_hide = file_to_hide.decode()
         except:
             print("ERROR: reading the file: " + str(p_new))
@@ -390,11 +434,9 @@ def stenography_decrypt(file_path):
     abs_destination = pwd / destination
     if(parent_destination.is_dir()):
         clear_message = lsb.reveal(str(image))
-     #   clear_message = str.encode(clear_message)
-     #   clear_message = clear_message[2:]
-     #   clear_message = clear_message[:-1]
         clear_message += "==="
         clear_message = base64.b64decode(clear_message)
+        clear_message = steno_decrypt(clear_message)
         try:
             with destination.open('wb') as new_file:
                 new_file.write(clear_message)
