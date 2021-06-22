@@ -482,7 +482,6 @@ def destroy_file(file_path):
     
 
 def check_if_file_exists(flag, file_path):
-    print(file_path)
     if( flag != "-h"):
         my_file = Path(file_path)
         if my_file.is_file():
