@@ -343,9 +343,6 @@ def recieve_file(file_path):
     pass
 
 
-def destroy_file(file_path):
-    pass
-
 
 def move_file(file_path):
     pass
@@ -447,6 +444,19 @@ def stenography_decrypt(file_path):
              exit(1)
 
 
+def destroy_file(file_path):
+    file_to_be_destroyed = Path(file_path)
+    try:
+        with file_to_be_destroyed.open('rb') as new_file:
+            data = new_file.read()
+    except:
+        print("ERROR: reading the file: " + str(file_to_be_destroyed))
+        exit(1)
+    size = file_to_be_destroyed.stat().st_size
+    length = len(data)
+    print("size : " + size + "\n")
+    print("length : " + length + "\n")
+
 def check_if_file_exists(flag, file_path):
     print(file_path)
     if( flag != "-h"):
@@ -471,10 +481,8 @@ def arguments(flag, file_path):
         change_pass(file_path)
     if( flag == "-h"):
         help_info()
-    if( flag == "-destroy"):
-        destroy_file(file_path)
     if( flag == "-r"):
-        recieve_file(file_path)
+        destroy_file(file_path)
     if( flag == "-m"):
         move_file(file_path)
 
