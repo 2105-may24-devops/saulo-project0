@@ -447,7 +447,7 @@ def stenography_decrypt(file_path):
 def destroy_file(file_path):
     file_to_be_destroyed = Path(file_path)
     
-    if (file_to_be_destroyed.is_file() == FALSE):
+    if (file_to_be_destroyed.is_file() is False):
         print("ERROR: Could not find file. \n")
         exit(1)
         
