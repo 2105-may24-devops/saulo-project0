@@ -446,12 +446,18 @@ def stenography_decrypt(file_path):
 
 def destroy_file(file_path):
     file_to_be_destroyed = Path(file_path)
+    
+    if (file_to_be_destroyed.is_file() == FALSE):
+        print("ERROR: Could not find file. \n")
+        exit(1)
+        
     try:
         with file_to_be_destroyed.open('rb') as old_file:
             data = old_file.read()
-    except:
-        print("ERROR: reading the file: " + str(file_to_be_destroyed))
+    except FileNotFoundError as e:
+        print("ERROR: reading the file: " + str(file_to_be_destroyed)  + " " + str(e.strerror))
         exit(1)
+        
     size = file_to_be_destroyed.stat().st_size
     length = len(data)
     
@@ -464,8 +470,14 @@ def destroy_file(file_path):
     try:
         with file_to_be_destroyed.open('wb') as new_file:
             new_file.write(random_data)
-    except:
-        print("ERROR: writing the file: " + str(file_to_be_destroyed))
+    except FileNotFoundError as e:
+        print("ERROR: writing the file: " + str(file_to_be_destroyed)  + " " + str(e.strerror))
+        exit(1)
+        
+    try:
+        file_to_be_destroyed.unlink()
+    except FileNotFoundError as e:
+        print("ERROR: deleting the file: " + str(file_to_be_destroyed) + " " + str(e.strerror))
         exit(1)
     
 
