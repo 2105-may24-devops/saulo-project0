@@ -454,8 +454,8 @@ def destroy_file(file_path):
         exit(1)
     size = file_to_be_destroyed.stat().st_size
     length = len(data)
-    print("size : " + size + "\n")
-    print("length : " + length + "\n")
+    print("size : " + str(size) + "\n")
+    print("length : " + str(length) + "\n")
 
 def check_if_file_exists(flag, file_path):
     print(file_path)
