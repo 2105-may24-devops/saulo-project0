@@ -462,7 +462,7 @@ def destroy_file(file_path):
     random_data = os.urandom(size)
     
     try:
-        file_to_be_destroyed.open('wb') as new_file:
+        with file_to_be_destroyed.open('wb') as new_file:
             new_file.write(random_data)
     except:
         print("ERROR: writing the file: " + str(file_to_be_destroyed))
