@@ -182,7 +182,39 @@ def nsa_encrypt(file_path):
     fernet_encrypt(file_path)
 
 def aes_encrypt(file_path):
-    fernet_encrypt(file_path)
+    length_of_blocks = 16
+    user_password = password_rules()
+    salt = b"this is a salt."
+    kdf = PBKDF2(user_password, salt, 64, 5000)
+    key = kdf[:32]
+    private_key = key
+
+    p_file_path = Path(file_path)
+
+    try:
+        with p_file_path.open('rb') as file:
+            data = file.read()
+    except:
+        print("ERROR: reading the file: " + str(p_file_path))
+        exit(1)
+
+    extended = length_of_blocks - len(data) % length_of_blocks
+    extended = extended * chr(length_of_blocks - len(data) % length_of_blocks)
+    extended = data + extended
+
+    iv = Random.new().read(AES.block_size)
+    cipher = AES.new(private_key, AES.MODE_CBC, iv)
+    cipher = iv + AES.new(private_key, AES.MODE_CBC, iv)
+
+    try:
+        with p_file_path.open('wb') as new_file:
+                new_file.write(cipher)
+    except:
+        print("ERROR: writing the file: " + str(p_file_path))
+        exit(1)
+
+    print("File successfuly encrypted.")
+
 
 def aes_encrypt_noninterractive(file_path):
     fernet_encrypt_noninterractive(file_path)
@@ -300,7 +332,34 @@ def nsa_decrypt(file_path):
     fernet_decrypt(file_path)
 
 def aes_decrypt(file_path):
-    fernet_decrypt(file_path)
+    length_of_blocks = 16
+    user_password = password_rules()
+    salt = b"this is a salt."
+    kdf = PBKDF2(user_password, salt, 64, 1000)
+    key = kdf[:32]
+    private_key = key
+    p_file_path = Path(file_path)
+
+    try:
+        with p_file_path.open('rb') as file:
+            enc = file.read()
+    except:
+        print("ERROR: reading the file: " + str(p_file_path))
+        exit(1)
+
+    iv = enc[:16]
+    cipher = AES.new(private_key, AES.MODE_CBC, iv)
+    data = cipher.decrypt(enc[16:])
+    clear_text =  data[:-ord(data[len(data) - 1:])]
+
+    try:
+        with p_file_path.open('wb') as new_file:
+            new_file.write(clear_text)
+    except:
+        print("ERROR: writing the file: " + str(p_file_path))
+        exit(1)
+    
+    print("File successfuly decrypted.")
 
 def aes_decrypt_noninterractive(file_path):
     fernet_decrypt_noninterractive(file_path)
