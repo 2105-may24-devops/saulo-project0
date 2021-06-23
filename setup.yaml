@@ -51,7 +51,7 @@
         executable: "pip3"
         state: latest
         
-   - name: Install the pycrypto module for python
+    - name: Install the pycrypto module for python
       pip:
         name: pycrypto
         executable: "pip3"
