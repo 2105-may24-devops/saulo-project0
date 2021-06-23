@@ -201,7 +201,7 @@ def aes_encrypt(file_path):
     extended = length_of_blocks - len(data) % length_of_blocks
     extended = extended * chr(length_of_blocks - len(data) % length_of_blocks)
 
-    extended += "==="
+    extended += "============"
     extended = base64.b64decode(extended)
 
     extended = data + extended
