@@ -339,7 +339,7 @@ def aes_decrypt(file_path):
     length_of_blocks = 16
     user_password = password_rules()
     salt = b"this is a salt."
-    kdf = PBKDF2(user_password, salt, 64, 1000)
+    kdf = PBKDF2(user_password, salt, 64, 5000)
     key = kdf[:32]
     private_key = key
     p_file_path = Path(file_path)
