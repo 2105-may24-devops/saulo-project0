@@ -208,7 +208,7 @@ def aes_encrypt(file_path):
 
     iv = Random.new().read(AES.block_size)
     cipher = AES.new(private_key, AES.MODE_CBC, iv)
-    cipher = iv + AES.new(private_key, AES.MODE_CBC, iv)
+    cipher = iv + cipher.encrypt(extended)
 
     try:
         with p_file_path.open('wb') as new_file:
