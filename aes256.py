@@ -31,7 +31,7 @@ def encrypt(raw, password):
     length_of_blocks = 16
     private_key = get_private_key(password)
     raw = extend(raw, length_of_blocks)
-    iv = Random.new().read(AES.length_of_block)
+    iv = Random.new().read(AES.block_size)
     cipher = AES.new(private_key, AES.MODE_CBC, iv)
     return base64.b64encode(iv + cipher.encrypt(raw))
  
