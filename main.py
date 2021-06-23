@@ -17,6 +17,15 @@ try:
 except ModuleNotFoundError:
     print("ERROR: stegano module not found.")
     exit(1)
+    
+try:
+    import base64
+    from Crypto.Cipher import AES
+    from Crypto import Random
+    from Crypto.Protocol.KDF import PBKDF2
+except ModuleNotFoundError:
+    print("ERROR: Crypto module not found.")
+    exit(1)
 
 
 
