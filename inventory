@@ -1,4 +1,4 @@
 [all]
 20.97.12.217 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=saulo ansible_python_interpreter=/usr/bin/python3
-13.66.8.112 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=saulo ansible_python_interpreter=/usr/bin/python3
-13.68.201.131 ansible_ssh_private_key_file=~/.ssh/david.pem ansible_user=saulo
+#13.66.8.112 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=saulo ansible_python_interpreter=/usr/bin/python3
+#13.68.201.131 ansible_ssh_private_key_file=~/.ssh/david.pem ansible_user=saulo
