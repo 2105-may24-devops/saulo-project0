@@ -8,7 +8,7 @@ pipeline {
         }
         stage('build2') {
             steps {
-                sh 'python --version'
+                sh 'python3 --version'
             }
         }
     }
