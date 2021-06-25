@@ -55,8 +55,11 @@ steps:
 - task: InstallSSHKey@0
   inputs:
     knownHostsEntry: |
+      |1|tI9zSiNctO0uj1btgufAXZis+Ic=|KY6Ptie/QZm0yyfGJr2lNgh91rw= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBol0BBG7Ah1dEgciEgRkqJ3tnLSOPHGKJtPlhM1yeiQAl3I4OIhTvY+EzMUS4hz/TppuiG6iHxlaU1D814MWC4=
       |1|TU78tJs/zXlKdteuBhAJ5hV8318=|s5DomYhBttVkg+tiPPuEFjD8JFg= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFAZU4nQNS6lNWqiFzoQ4pjTSmsGyxWmyoZS7pzSWooaua/yV9JDou49KuhCzZakpP/PY0WfTxbo/KrZM+ESW+Q=
       |1|euwDLW1On0d1/+OtcFflm8+mnRc=|9ZoPDfH0l088F5VEEh6Sp2UMymY= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB8uiPgYsAfhZo9tzfam2hbv7G1TUF4hk0jzrxO/SjLO2qBpMrlDaQvQWYZI3kdNT1xgFHFKSXcyaPElszq3tqU=
+      |1|k97tIxHalyi22EiJ+kLGOHGhHJw=|eTQkSx/M6qgeAYkkJDT6GEkJJY0= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOisyAjpff9TU65EBxQHa9aooS5dbeN5axZuV4C9RQaVgue6blgYeLKl00NlegM39rV8v3xyZw3F3LFqJesklKs=
+      |1|NAaSrUtpSJ9C6BUEnN3fWu0zPDI=|rtFMS655ZZe0dltDuqEPw3laWKE= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNbeiTpRVVSi17U7bDaaN6MWlqT4/Lia7DRqS6LVDAhIdHYR1hRGR9PXtwCYdKCs6+95BQgN6KVHMg9Rjqbrv4s=
     sshKeySecureFile: '2105-may24-devops-ubuntu-vm-1_key.pem'
 
 - task: Ansible@0
